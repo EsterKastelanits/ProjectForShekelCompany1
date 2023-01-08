@@ -1,0 +1,311 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="ShekelTestModel1.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Customers">
+          <Key>
+            <PropertyRef Name="customerId" />
+          </Key>
+          <Property Name="customerId" Type="nvarchar" MaxLength="9" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" />
+          <Property Name="address" Type="nvarchar" MaxLength="150" />
+          <Property Name="phone" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Factories">
+          <Key>
+            <PropertyRef Name="factoryCode" />
+          </Key>
+          <Property Name="groupCode" Type="int" Nullable="false" />
+          <Property Name="factoryCode" Type="int" Nullable="false" />
+          <Property Name="factoryName" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="FactoriesToCustomer">
+          <Key>
+            <PropertyRef Name="groupCode" />
+            <PropertyRef Name="factoryCode" />
+            <PropertyRef Name="customerId" />
+          </Key>
+          <Property Name="groupCode" Type="int" Nullable="false" />
+          <Property Name="factoryCode" Type="int" Nullable="false" />
+          <Property Name="customerId" Type="nvarchar" MaxLength="9" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Groups">
+          <Key>
+            <PropertyRef Name="groupCode" />
+          </Key>
+          <Property Name="groupCode" Type="int" Nullable="false" />
+          <Property Name="groupName" Type="nvarchar" MaxLength="150" />
+        </EntityType>
+        <Association Name="FK__Factories__custo__4CA06362">
+          <End Role="Customers" Type="Self.Customers" Multiplicity="1" />
+          <End Role="FactoriesToCustomer" Type="Self.FactoriesToCustomer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customers">
+              <PropertyRef Name="customerId" />
+            </Principal>
+            <Dependent Role="FactoriesToCustomer">
+              <PropertyRef Name="customerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Factories__facto__5AEE82B9">
+          <End Role="Factories" Type="Self.Factories" Multiplicity="1" />
+          <End Role="FactoriesToCustomer" Type="Self.FactoriesToCustomer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Factories">
+              <PropertyRef Name="factoryCode" />
+            </Principal>
+            <Dependent Role="FactoriesToCustomer">
+              <PropertyRef Name="factoryCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Factories__group__49C3F6B7">
+          <End Role="Groups" Type="Self.Groups" Multiplicity="1" />
+          <End Role="Factories" Type="Self.Factories" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Groups">
+              <PropertyRef Name="groupCode" />
+            </Principal>
+            <Dependent Role="Factories">
+              <PropertyRef Name="groupCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Factories__group__4AB81AF0">
+          <End Role="Groups" Type="Self.Groups" Multiplicity="1" />
+          <End Role="FactoriesToCustomer" Type="Self.FactoriesToCustomer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Groups">
+              <PropertyRef Name="groupCode" />
+            </Principal>
+            <Dependent Role="FactoriesToCustomer">
+              <PropertyRef Name="groupCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ShekelTestModel1StoreContainer">
+          <EntitySet Name="Customers" EntityType="Self.Customers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Factories" EntityType="Self.Factories" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FactoriesToCustomer" EntityType="Self.FactoriesToCustomer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Groups" EntityType="Self.Groups" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Factories__custo__4CA06362" Association="Self.FK__Factories__custo__4CA06362">
+            <End Role="Customers" EntitySet="Customers" />
+            <End Role="FactoriesToCustomer" EntitySet="FactoriesToCustomer" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Factories__facto__5AEE82B9" Association="Self.FK__Factories__facto__5AEE82B9">
+            <End Role="Factories" EntitySet="Factories" />
+            <End Role="FactoriesToCustomer" EntitySet="FactoriesToCustomer" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Factories__group__49C3F6B7" Association="Self.FK__Factories__group__49C3F6B7">
+            <End Role="Groups" EntitySet="Groups" />
+            <End Role="Factories" EntitySet="Factories" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Factories__group__4AB81AF0" Association="Self.FK__Factories__group__4AB81AF0">
+            <End Role="Groups" EntitySet="Groups" />
+            <End Role="FactoriesToCustomer" EntitySet="FactoriesToCustomer" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ShekelTestModel1" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Customers">
+          <Key>
+            <PropertyRef Name="customerId" />
+          </Key>
+          <Property Name="customerId" Type="String" MaxLength="9" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="address" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="FactoriesToCustomer" Relationship="ShekelTestModel1.FK__Factories__custo__4CA06362" FromRole="Customers" ToRole="FactoriesToCustomer" />
+        </EntityType>
+        <EntityType Name="FactoriesToCustomer">
+          <Key>
+            <PropertyRef Name="groupCode" />
+            <PropertyRef Name="factoryCode" />
+            <PropertyRef Name="customerId" />
+          </Key>
+          <Property Name="groupCode" Type="Int32" Nullable="false" />
+          <Property Name="factoryCode" Type="Int32" Nullable="false" />
+          <Property Name="customerId" Type="String" MaxLength="9" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Customers" Relationship="ShekelTestModel1.FK__Factories__custo__4CA06362" FromRole="FactoriesToCustomer" ToRole="Customers" />
+          <NavigationProperty Name="Groups" Relationship="ShekelTestModel1.FK__Factories__group__4AB81AF0" FromRole="FactoriesToCustomer" ToRole="Groups" />
+          <NavigationProperty Name="Groups1" Relationship="ShekelTestModel1.FK__Factories__group__4D94879B" FromRole="FactoriesToCustomer" ToRole="Groups" />
+          <NavigationProperty Name="Factories" Relationship="ShekelTestModel1.FK__Factories__facto__5AEE82B9" FromRole="FactoriesToCustomer" ToRole="Factories" />
+        </EntityType>
+        <EntityType Name="Groups">
+          <Key>
+            <PropertyRef Name="groupCode" />
+          </Key>
+          <Property Name="groupCode" Type="Int32" Nullable="false" />
+          <Property Name="groupName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="FactoriesToCustomer" Relationship="ShekelTestModel1.FK__Factories__group__4AB81AF0" FromRole="Groups" ToRole="FactoriesToCustomer" />
+          <NavigationProperty Name="FactoriesToCustomer1" Relationship="ShekelTestModel1.FK__Factories__group__4D94879B" FromRole="Groups" ToRole="FactoriesToCustomer" />
+          <NavigationProperty Name="Factories" Relationship="ShekelTestModel1.FK__Factories__group__49C3F6B7" FromRole="Groups" ToRole="Factories" />
+        </EntityType>
+        <EntityContainer Name="ShekelTestEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Customers" EntityType="Self.Customers" />
+          <EntitySet Name="FactoriesToCustomer" EntityType="Self.FactoriesToCustomer" />
+          <EntitySet Name="Groups" EntityType="Self.Groups" />
+          <AssociationSet Name="FK__Factories__custo__4CA06362" Association="ShekelTestModel1.FK__Factories__custo__4CA06362">
+            <End Role="Customers" EntitySet="Customers" />
+            <End Role="FactoriesToCustomer" EntitySet="FactoriesToCustomer" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Factories__group__4AB81AF0" Association="ShekelTestModel1.FK__Factories__group__4AB81AF0">
+            <End Role="Groups" EntitySet="Groups" />
+            <End Role="FactoriesToCustomer" EntitySet="FactoriesToCustomer" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Factories__group__4D94879B" Association="ShekelTestModel1.FK__Factories__group__4D94879B">
+            <End Role="Groups" EntitySet="Groups" />
+            <End Role="FactoriesToCustomer" EntitySet="FactoriesToCustomer" />
+          </AssociationSet>
+          <EntitySet Name="Factories" EntityType="ShekelTestModel1.Factories" />
+          <AssociationSet Name="FK__Factories__group__49C3F6B7" Association="ShekelTestModel1.FK__Factories__group__49C3F6B7">
+            <End Role="Groups" EntitySet="Groups" />
+            <End Role="Factories" EntitySet="Factories" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Factories__facto__5AEE82B9" Association="ShekelTestModel1.FK__Factories__facto__5AEE82B9">
+            <End Role="Factories" EntitySet="Factories" />
+            <End Role="FactoriesToCustomer" EntitySet="FactoriesToCustomer" />
+          </AssociationSet>
+        </EntityContainer>
+        <Association Name="FK__Factories__custo__4CA06362">
+          <End Type="ShekelTestModel1.Customers" Role="Customers" Multiplicity="1" />
+          <End Type="ShekelTestModel1.FactoriesToCustomer" Role="FactoriesToCustomer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customers">
+              <PropertyRef Name="customerId" />
+            </Principal>
+            <Dependent Role="FactoriesToCustomer">
+              <PropertyRef Name="customerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Factories__group__4AB81AF0">
+          <End Type="ShekelTestModel1.Groups" Role="Groups" Multiplicity="1" />
+          <End Type="ShekelTestModel1.FactoriesToCustomer" Role="FactoriesToCustomer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Groups">
+              <PropertyRef Name="groupCode" />
+            </Principal>
+            <Dependent Role="FactoriesToCustomer">
+              <PropertyRef Name="groupCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Factories__group__4D94879B">
+          <End Type="ShekelTestModel1.Groups" Role="Groups" Multiplicity="1" />
+          <End Type="ShekelTestModel1.FactoriesToCustomer" Role="FactoriesToCustomer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Groups">
+              <PropertyRef Name="groupCode" />
+            </Principal>
+            <Dependent Role="FactoriesToCustomer">
+              <PropertyRef Name="groupCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Factories">
+          <Key>
+            <PropertyRef Name="factoryCode" />
+          </Key>
+          <Property Name="groupCode" Type="Int32" Nullable="false" />
+          <Property Name="factoryCode" Type="Int32" Nullable="false" />
+          <Property Name="factoryName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Groups" Relationship="ShekelTestModel1.FK__Factories__group__49C3F6B7" FromRole="Factories" ToRole="Groups" />
+          <NavigationProperty Name="FactoriesToCustomer" Relationship="ShekelTestModel1.FK__Factories__facto__5AEE82B9" FromRole="Factories" ToRole="FactoriesToCustomer" />
+        </EntityType>
+        <Association Name="FK__Factories__group__49C3F6B7">
+          <End Type="ShekelTestModel1.Groups" Role="Groups" Multiplicity="1" />
+          <End Type="ShekelTestModel1.Factories" Role="Factories" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Groups">
+              <PropertyRef Name="groupCode" />
+            </Principal>
+            <Dependent Role="Factories">
+              <PropertyRef Name="groupCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Factories__facto__5AEE82B9">
+          <End Type="ShekelTestModel1.Factories" Role="Factories" Multiplicity="1" />
+          <End Type="ShekelTestModel1.FactoriesToCustomer" Role="FactoriesToCustomer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Factories">
+              <PropertyRef Name="factoryCode" />
+            </Principal>
+            <Dependent Role="FactoriesToCustomer">
+              <PropertyRef Name="factoryCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ShekelTestModel1StoreContainer" CdmEntityContainer="ShekelTestEntities">
+          <EntitySetMapping Name="Customers">
+            <EntityTypeMapping TypeName="ShekelTestModel1.Customers">
+              <MappingFragment StoreEntitySet="Customers">
+                <ScalarProperty Name="customerId" ColumnName="customerId" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FactoriesToCustomer">
+            <EntityTypeMapping TypeName="ShekelTestModel1.FactoriesToCustomer">
+              <MappingFragment StoreEntitySet="FactoriesToCustomer">
+                <ScalarProperty Name="groupCode" ColumnName="groupCode" />
+                <ScalarProperty Name="factoryCode" ColumnName="factoryCode" />
+                <ScalarProperty Name="customerId" ColumnName="customerId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Groups">
+            <EntityTypeMapping TypeName="ShekelTestModel1.Groups">
+              <MappingFragment StoreEntitySet="Groups">
+                <ScalarProperty Name="groupCode" ColumnName="groupCode" />
+                <ScalarProperty Name="groupName" ColumnName="groupName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Factories">
+            <EntityTypeMapping TypeName="ShekelTestModel1.Factories">
+              <MappingFragment StoreEntitySet="Factories">
+                <ScalarProperty Name="factoryName" ColumnName="factoryName" />
+                <ScalarProperty Name="factoryCode" ColumnName="factoryCode" />
+                <ScalarProperty Name="groupCode" ColumnName="groupCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
